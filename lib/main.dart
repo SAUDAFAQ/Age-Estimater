@@ -1,3 +1,4 @@
+import 'package:age_estimater/data/remote/remote_repository.dart';
 import 'package:age_estimater/presentation/age_estimate_screen.dart';
 import 'package:age_estimater/presentation/bloc/age_estimate_bloc.dart';
 import 'package:dio/dio.dart';
@@ -10,7 +11,8 @@ import 'domain/repository/age_estimate_repository.dart';
 void main() {
   final dio = Dio();
   final httpManager = HttpManager(dio: dio);
-  final ageRepository = AgeEstimateRepository(httpManager);
+  final remoteRepository = RemoteRepository(httpManager);
+  final ageRepository = AgeEstimateRepository(remoteRepository);
 
   runApp(MyApp(
     ageRepository: ageRepository,
