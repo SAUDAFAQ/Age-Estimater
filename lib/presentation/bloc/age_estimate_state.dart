@@ -13,8 +13,9 @@ class AgeLoading extends AgeEstimateState {}
 
 class AgeLoaded extends AgeEstimateState {
   final int age;
+  final String name;
 
-  const AgeLoaded(this.age);
+  const AgeLoaded(this.age, this.name);
 
   @override
   List<Object> get props => [age];

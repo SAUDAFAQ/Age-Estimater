@@ -1,5 +1,6 @@
 
-import 'package:age_estimater/domain/repository/age_estimate_repository.dart';
+import 'package:age_estimater/domain/repository/age_estimate_repository/age_estimate_repository.dart';
+import 'package:age_estimater/utils/validation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -20,7 +21,7 @@ class AgeEstimateBloc extends Bloc<AgeEstimateEvent, AgeEstimateState> {
     emit(AgeLoading());
     try {
       final response = await ageRepository.getAgeEstimate(event.name);
-      emit(AgeLoaded(response.age));
+      emit(AgeLoaded(response.age, event.name));
     } catch (e) {
       emit(AgeError(e.toString()));
     }
@@ -28,5 +29,12 @@ class AgeEstimateBloc extends Bloc<AgeEstimateEvent, AgeEstimateState> {
 
   void _onResetEvent(ResetEvent event, Emitter<AgeEstimateState> emit) {
     emit(AgeInitial());
+  }
+
+  String? validateName(name) {
+    return UtilValidator.validate(
+      name,
+      type: ValidateType.name,
+    );
   }
 }
