@@ -1,7 +1,7 @@
 import 'package:age_estimater/data/remote/remote_repository_concrete.dart';
 import 'package:age_estimater/domain/repository/age_estimate_repository/age_estimate_repository_concrete.dart';
-import 'package:age_estimater/presentation/age_estimate_screen.dart';
-import 'package:age_estimater/presentation/bloc/age_estimate_bloc.dart';
+import 'package:age_estimater/presentation/screens/age_estimate/age_estimate_screen.dart';
+import 'package:age_estimater/presentation/screens/age_estimate/bloc/age_estimate_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

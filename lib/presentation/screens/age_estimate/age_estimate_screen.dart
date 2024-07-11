@@ -1,7 +1,8 @@
+
+import 'package:age_estimater/presentation/screens/age_estimate/bloc/age_estimate_bloc.dart';
+import 'package:age_estimater/presentation/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'bloc/age_estimate_bloc.dart';
 
 class AgeEstimateScreen extends StatefulWidget {
   const AgeEstimateScreen({super.key});
@@ -49,9 +50,9 @@ class _AgeEstimateScreenState extends State<AgeEstimateScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'Enter a name to get the estimated age',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: fontSize),
+                    style: TextStyle(fontSize: 30),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: padding),
@@ -65,7 +66,7 @@ class _AgeEstimateScreenState extends State<AgeEstimateScreen> {
                   SizedBox(height: padding),
                   SizedBox(
                     height: buttonHeight,
-                    child: ElevatedButton(
+                    child: AppButton(
                       onPressed: () {
                         if (_isNameNotEmpty) {
                           String? validationResponse = context
@@ -91,20 +92,20 @@ class _AgeEstimateScreenState extends State<AgeEstimateScreen> {
                           );
                         }
                       },
-                      child: const Text('Get Age Estimate'),
+                      buttonText: 'Get Age Estimate',
                     ),
                   ),
                   SizedBox(height: padding * 0.5),
                   SizedBox(
                     height: buttonHeight,
-                    child: ElevatedButton(
+                    child: AppButton(
                       onPressed: _isNameNotEmpty
                           ? () {
-                        _nameController.clear();
-                        context.read<AgeEstimateBloc>().add(ResetEvent());
-                      }
+                              _nameController.clear();
+                              context.read<AgeEstimateBloc>().add(ResetEvent());
+                            }
                           : null,
-                      child: const Text('Restart'),
+                      buttonText: 'Restart',
                     ),
                   ),
                   SizedBox(height: padding * 0.5),
@@ -115,13 +116,16 @@ class _AgeEstimateScreenState extends State<AgeEstimateScreen> {
                       } else if (state is AgeLoaded) {
                         return Text(
                           'Estimated Age for ${state.name} is: ${state.age}',
-                          style: TextStyle(color: Colors.green[800], fontSize: fontSize * 0.8),
+                          style: TextStyle(
+                              color: Colors.green[800],
+                              fontSize: fontSize * 0.8),
                           textAlign: TextAlign.center,
                         );
                       } else if (state is AgeError) {
                         return Text(
                           'Invalid username, failed to load age estimate\nPlease enter valid username',
-                          style: TextStyle(color: Colors.red[800], fontSize: fontSize * 0.8),
+                          style: TextStyle(
+                              color: Colors.red[800], fontSize: fontSize * 0.8),
                           textAlign: TextAlign.center,
                         );
                       }
