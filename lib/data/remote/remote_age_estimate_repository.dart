@@ -1,11 +1,11 @@
 import 'package:age_estimater/data/data_sources/http_manager.dart';
 import 'package:age_estimater/data/model/age_model.dart';
-import 'package:age_estimater/data/remote/remote_repository.dart';
+import 'package:age_estimater/domain/repository/age_estimate_repository/age_estimate_repository.dart';
 
-class RemoteRepositoryConcrete implements RemoteRepository {
-  final HttpManager httpManager;
+class RemoteAgeEstimateRepository implements AgeEstimateRepository {
+  final httpManager = HttpManager();
 
-  RemoteRepositoryConcrete(this.httpManager);
+  RemoteAgeEstimateRepository();
 
   @override
   Future<AgeEstimateModel> getAgeEstimate(String name) async {

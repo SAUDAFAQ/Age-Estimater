@@ -3,9 +3,9 @@ import 'package:age_estimater/utils/const.dart';
 import 'package:dio/dio.dart';
 
 class HttpManager {
-  late final Dio dio;
+  final dio = Dio();
 
-  HttpManager({required this.dio});
+  HttpManager();
 
   Future<AgeEstimateModel> getAgeEstimate(String name) async {
     try {

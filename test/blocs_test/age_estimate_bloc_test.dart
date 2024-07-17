@@ -19,7 +19,7 @@ void main() {
     registerFallbackValue(FakeGetAgeEvent());
     registerFallbackValue(FakeResetEvent());
     mockAgeEstimateRepository = MockAgeEstimateRepository();
-    ageEstimateBloc = AgeEstimateBloc(mockAgeEstimateRepository);
+    ageEstimateBloc = AgeEstimateBloc(ageRepository: mockAgeEstimateRepository);
   });
 
   tearDown(() {
@@ -35,7 +35,7 @@ void main() {
       'emits [AgeLoading, AgeLoaded] when GetAgeEvent is called',
       build: () {
         when(() => mockAgeEstimateRepository.getAgeEstimate(any())).thenAnswer(
-          (_) async => AgeEstimateModel(count: 3122, name: "saud", age: 53),
+              (_) async => AgeEstimateModel(count: 3122, name: "saud", age: 53),
         );
         return ageEstimateBloc;
       },

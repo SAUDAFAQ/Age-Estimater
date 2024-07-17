@@ -1,22 +1,16 @@
-import 'package:age_estimater/data/remote/remote_repository_concrete.dart';
-import 'package:age_estimater/domain/repository/age_estimate_repository/age_estimate_repository_concrete.dart';
 import 'package:age_estimater/presentation/screens/age_estimate/age_estimate_screen.dart';
 import 'package:age_estimater/presentation/screens/age_estimate/bloc/age_estimate_bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/data_sources/http_manager.dart';
+import 'di/injection_container.dart';
 import 'domain/repository/age_estimate_repository/age_estimate_repository.dart';
 
 void main() {
-  final dio = Dio();
-  final httpManager = HttpManager(dio: dio);
-  final remoteRepository = RemoteRepositoryConcrete(httpManager);
-  final ageRepository = AgeEstimateRepositoryConcrete(remoteRepository);
-
+  setupLocator();
+  final AgeEstimateRepository ageEstimateRepository = sl<AgeEstimateRepository>();
   runApp(MyApp(
-    ageRepository: ageRepository,
+    ageRepository: ageEstimateRepository,
   ));
 }
 
@@ -30,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Age Estimator',
       home: BlocProvider(
-        create: (context) => AgeEstimateBloc(ageRepository),
+        create: (context) => AgeEstimateBloc(ageRepository: ageRepository),
         child: const AgeEstimateScreen(),
       ),
     );
